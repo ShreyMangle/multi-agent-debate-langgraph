@@ -1,0 +1,8 @@
+langgraph
+langchain
+langchain-ollama
+ollama
+python-dotenv
+graphviz
+pytest
+rich

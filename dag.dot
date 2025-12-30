@@ -1,0 +1,16 @@
+// LangGraph Multi-Agent Debate DAG
+digraph {
+	UserInput [label=UserInputNode]
+	Coordinator [label=Coordinator]
+	AgentA [label="AgentA (Scientist)"]
+	AgentB [label="AgentB (Philosopher)"]
+	Memory [label=MemoryNode]
+	Judge [label=JudgeNode]
+	UserInput -> Coordinator
+	Coordinator -> AgentA [label="even rounds"]
+	Coordinator -> AgentB [label="odd rounds"]
+	AgentA -> Memory
+	AgentB -> Memory
+	Memory -> Coordinator
+	Coordinator -> Judge [label="after 8 rounds"]
+}
