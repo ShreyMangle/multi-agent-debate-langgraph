@@ -1,32 +1,19 @@
-from graphviz import Digraph
-
-
 def generate_dag():
-    dot = Digraph(
-        comment="LangGraph Multi-Agent Debate DAG",
-        format="png"
-    )
+    dot_content = """
+digraph LangGraphDebate {
+    UserInput -> Coordinator;
+    Coordinator -> AgentA [label="even rounds"];
+    Coordinator -> AgentB [label="odd rounds"];
+    AgentA -> Memory;
+    AgentB -> Memory;
+    Memory -> Coordinator;
+    Coordinator -> Judge [label="after 8 rounds"];
+}
+"""
+    with open("dag.dot", "w", encoding="utf-8") as f:
+        f.write(dot_content)
 
-    # Nodes
-    dot.node("UserInput", "UserInputNode")
-    dot.node("Coordinator", "Coordinator")
-    dot.node("AgentA", "AgentA (Scientist)")
-    dot.node("AgentB", "AgentB (Philosopher)")
-    dot.node("Memory", "MemoryNode")
-    dot.node("Judge", "JudgeNode")
-
-    # Edges
-    dot.edge("UserInput", "Coordinator")
-    dot.edge("Coordinator", "AgentA", label="even rounds")
-    dot.edge("Coordinator", "AgentB", label="odd rounds")
-    dot.edge("AgentA", "Memory")
-    dot.edge("AgentB", "Memory")
-    dot.edge("Memory", "Coordinator")
-    dot.edge("Coordinator", "Judge", label="after 8 rounds")
-
-    # Render
-    dot.render("dag")
-    print("✅ DAG diagram saved as dag.png")
+    print("DAG definition saved as dag.dot")
 
 
 if __name__ == "__main__":
