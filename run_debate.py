@@ -66,9 +66,14 @@ def main():
     graph.add_edge("AgentB", "Memory")
     graph.add_edge("Memory", "Coordinator")
 
-    # Compile & run
+    # Compile
     app = graph.compile()
-    final_state = app.invoke(state)
+
+    # 🔥 FIX: increase recursion limit for looped workflow
+    final_state = app.invoke(
+        state,
+        config={"recursion_limit": 100}
+    )
 
     # Output
     print("\n=========== FINAL JUDGE ===========\n")
